@@ -7,8 +7,11 @@ public class MEOWNGE
   int ledCnt = 0;
   int globalStripCount = 0;
   int tempCnt = 0;
-  MeowngeStrip strips[];
+  private static final int STRIP_COUNT = 46;
   
+  //Fixed number of strips, so just make it here.
+  MeowngeStrip[] strips = new MeowngeStrip[STRIP_COUNT];
+
   //This is kind of a pain, think of a better way...
   private static final int RIGHT_EYEBROW_OUTER = 0;
   private static final int RIGHT_EYEBROW_INNER = 1;
@@ -185,6 +188,21 @@ public class MEOWNGE
     createMeowngeStrip(289, 519, 289, 421, 41, true);
     println();
   }
+  
+  void setStripColor(int index, int r, int g, int b)
+  {
+     if (index < STRIP_COUNT)
+     {
+
+         strokeWeight(4.0);
+       stroke(color(r, g, b));
+       line(strips[index].startX, 
+             strips[index].startY, 
+             strips[index].endX, 
+             strips[index].endY);
+       ;
+     }
+  }
 }
 
 private class MeowngeStrip
@@ -192,6 +210,7 @@ private class MeowngeStrip
   float startX, startY;
   float endX, endY;
   int ledCnt;
+  int index;
   
   MeowngeStrip(float startX, float startY, float endX, float endY, int ledCnt)
   {
@@ -200,5 +219,10 @@ private class MeowngeStrip
      this.endX = endX;
      this.endY = endY;
      this.ledCnt = ledCnt;
+  }
+  
+  void identifyStrip()
+  {
+    
   }
 }

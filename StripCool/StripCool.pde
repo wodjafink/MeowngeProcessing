@@ -21,8 +21,11 @@ void setup() {
 
 void draw() {
   background(0);
-  strokeWeight(2.0);
-  stroke(color(255, 0, 0));
-  line(30, 30, 30, 0);
+
+  for (int i = 0; i < 46; i++)
+  {
+     meownge.setStripColor(i, 255 , 0 , 0);
+     delay(100);
+  }
 
 }
