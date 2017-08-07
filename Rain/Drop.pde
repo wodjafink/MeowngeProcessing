@@ -1,4 +1,4 @@
-class Star {
+class Drop {
   float x = random(width);
   float y = random(-500, -50);
   float z = random(0, 20);
