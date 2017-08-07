@@ -193,14 +193,14 @@ public class MEOWNGE
   {
      if (index < STRIP_COUNT)
      {
-
-         strokeWeight(4.0);
+       beginShape();
+       strokeWeight(4.0);
        stroke(color(r, g, b));
        line(strips[index].startX, 
              strips[index].startY, 
              strips[index].endX, 
              strips[index].endY);
-       ;
+       endShape();
      }
   }
 }
