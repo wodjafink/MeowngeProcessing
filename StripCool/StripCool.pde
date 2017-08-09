@@ -27,30 +27,8 @@ void setup() {
 }
 
 void draw() {
-  //int now = millis();
-  //int stripIndex = 0;
-
-  //if (millis() > (startTime + 1000))
-  //{
-  //  startTime = millis();
-  //  stripIndex = (int)now % 46;
-  //  meownge.setStripColor(stripIndex, (int)random(255), 0 , 0);
-
-  //}
-  //    background(0);
-      
-  //background(0);
-  if(millis() >= nextTime){
-    println(millis()); // Print actual time for debug
-    // Now put the time dependant code here
-      //meownge.setStripColor(c - 1, 0, 0, 0);
-    meownge.setStripColor(c++, 255, 0 , 0);
-    // Update the time for the next time
-    nextTime += INTERVAL;
-
-  }
-
-  //text(c, 70, 140);
+  meownge.update();
+  meownge.show();
 }
 
 void myDelay(int ms)

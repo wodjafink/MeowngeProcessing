@@ -7,6 +7,10 @@ public class MEOWNGE
   int ledCnt = 0;
   int globalStripCount = 0;
   int tempCnt = 0;
+  int noseBrightness = 0;
+  boolean goUp = true;
+  int upIndex = 0;
+  
   private static final int STRIP_COUNT = 46;
   
   //Fixed number of strips, so just make it here.
@@ -189,18 +193,38 @@ public class MEOWNGE
     println();
   }
   
-  void setStripColor(int index, int r, int g, int b)
+  void update()
+  {
+    if (noseBrightness > 20)
+    {
+      goUp = false;
+      if (upIndex < STRIP_COUNT)
+        strips[upIndex++].setColor(color(255, 0, 0)); 
+    }
+    
+    if (noseBrightness < 1)
+      goUp = true; 
+    
+    if (goUp == true)
+      noseBrightness++;
+    else
+      noseBrightness--;
+      
+  }
+  
+  void show()
+  {
+    for (int i = 0; i < STRIP_COUNT; i++)
+    {
+      strips[i].display(); 
+    }
+  }
+  
+  void setStripColor(int index, color c)
   {
      if (index < STRIP_COUNT)
      {
-       beginShape();
-       strokeWeight(4.0);
-       stroke(color(r, g, b));
-       line(strips[index].startX, 
-             strips[index].startY, 
-             strips[index].endX, 
-             strips[index].endY);
-       endShape();
+       strips[index].setColor(c);
      }
   }
 }
@@ -211,6 +235,8 @@ private class MeowngeStrip
   float endX, endY;
   int ledCnt;
   int index;
+  boolean isOn = false;
+  color c = color(0, 0, 0);
   
   MeowngeStrip(float startX, float startY, float endX, float endY, int ledCnt)
   {
@@ -221,8 +247,16 @@ private class MeowngeStrip
      this.ledCnt = ledCnt;
   }
   
-  void identifyStrip()
+  void setColor(color c)
   {
+    this.c = c; 
+  }
+  
+  void display()
+  {
+    strokeWeight(2);
+    stroke(c);
     
+    line(startX, startY, endX, endY);
   }
 }
