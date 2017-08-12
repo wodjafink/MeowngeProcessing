@@ -27,7 +27,8 @@ class ImageLoader extends DefaultDrawer
     {
       File[] files = dir.listFiles();
       Random rand = new Random();
-      imageMode = rand.nextInt(3);
+      //imageMode = rand.nextInt(3);
+      imageMode = IMAGE_MODE_ROTATE;
       File file = files[rand.nextInt(files.length)];
   
       // Load a sample image
@@ -38,6 +39,9 @@ class ImageLoader extends DefaultDrawer
       
       switch(imageMode){
         case IMAGE_MODE_ROTATE:
+          ratioWidth = ceil(im.height * width / im.width / im.width) + 2;
+          ratioHeight = ceil(im.width * height / im.height / im.height) + 2;
+          
           println("Rotate image");
           image(im, 0, 0);
           imageMode(CENTER);
@@ -62,6 +66,8 @@ class ImageLoader extends DefaultDrawer
   
   void Draw()
   {
+    float rotateScale_x;
+    float rotateScale_y;
     float speed = 0.05;
     int imWidth = im.width * height / im.height;
     int imHeight = im.height * width / im.width;
@@ -73,6 +79,7 @@ class ImageLoader extends DefaultDrawer
           image(im, width/2 - im.width/2, height - im.height/4);
           translate(width/2, height/2);
           rotate(HALF_PI * millis() * 0.001);
+          scale((dist(0, 0, im.width, im.height) / 2)/ dist(300,300,600,600));
           image(im, 0, 0);
           break;
         case IMAGE_MODE_HORIZONTAL:
