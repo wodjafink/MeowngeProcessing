@@ -20,7 +20,7 @@ void setup()
   println("Found " + count + " images");
 
   // Load a sample image
-  im = loadImage("rainbowspiral.jpg");
+  im = loadImage("rastaflag.png");
 
   
    //imageMode(CENTER);
@@ -32,31 +32,32 @@ void setup()
 }
 
 //Scroll Vertical
-//void draw()
-//{
-//  // Scale the image so that it matches the width of the window
-//  int imHeight = im.height * width / im.width;
-
-//  // Scroll down slowly, and wrap around
-//  float speed = 0.05;
-//  float y = (millis() * -speed) % imHeight;
-  
-//  // Use two copies of the image, so it seems to repeat infinitely  
-//  image(im, 0, y, width, imHeight);
-//  image(im, 0, y + imHeight, width, imHeight);
-//}
-
-//Scroll Horizontal
 void draw()
 {
-   int imWidth = im.width * height / im.height;
-   
-   float speed = 0.05;
-   float x = (millis() * -speed) % imWidth;
-   
-   image(im, x, 0, imWidth, height);
-   image(im, x + imWidth, 0, imWidth, height);
+  // Scale the image so that it matches the width of the window
+  int imHeight = im.height * width / im.width;
+
+  // Scroll down slowly, and wrap around
+  float speed = 0.05;
+  float y = (millis() * -speed) % imHeight;
+  
+  // Use two copies of the image, so it seems to repeat infinitely  
+  image(im, 0, y, width, imHeight);
+  image(im, 0, y + imHeight, width, imHeight);
+  image(im, 0, y + (2 * imHeight), width, imHeight);
 }
+
+//Scroll Horizontal
+//void draw()
+//{
+//   int imWidth = im.width * height / im.height;
+   
+//   float speed = 0.05;
+//   float x = (millis() * -speed) % imWidth;
+   
+//   image(im, x, 0, imWidth, height);
+//   image(im, x + imWidth, 0, imWidth, height);
+//}
 
 //Rotate!
 //void draw()
