@@ -205,18 +205,19 @@ public class MEOWNGE
       blendMode(ADD);
    
       float size = height * (minSize + sizeScale * fftFilter[i]);
-      int location = floor(map(size, height, 0, 0, 54));
+      int location = floor(map(size, 0, height / 2,  0, 52));
       //PVector center = new PVector(width * (fftFilter[i] * 0.2), 0);
       //center.rotate(millis() * spin + i * radiansPerBucket);
       //center.add(new PVector(width * 0.5, height * 0.5));
       //strokeWeight(size);
       //stroke(rgb);
+      println("Access" + location);
       imageMode(CENTER);
-      println("Do " + location + " At x " + strips[location].centerX + 
-        " and y " + strips[location].centerY);
-      println("  From " + strips[location].startX + "," + strips[location].startY
-        + " to " + strips[location].endX + "," + strips[location].endY);
-      image(dot, strips[location].centerX, strips[location].centerY);
+      //println("Do " + location + " At x " + strips[location].centerX + 
+      //  " and y " + strips[location].centerY);
+      //println("  From " + strips[location].startX + "," + strips[location].startY
+      //  + " to " + strips[location].endX + "," + strips[location].endY);
+      image(dot, strips[location].centerX, strips[location].centerY, size, size);
       
       //if (location % 2 == 0)
       //{
