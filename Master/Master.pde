@@ -92,7 +92,8 @@ void setup()
   //Drawer dr = new PulsatingCircles();
   //dr.SetDuration(5);
   //drawers.add(dr);
-  drawers.add(new ImageLoader());
+  //drawers.add(new ImageLoader());
+  drawers.add(new Visualizer());
   //drawers.add(new Texter(5, "Fill With Circles 2", #CC6600));
   //drawers.add(new FillWithCircles(350, 333));
   //drawers.add(new Texter(10, "END", #FF0000));
