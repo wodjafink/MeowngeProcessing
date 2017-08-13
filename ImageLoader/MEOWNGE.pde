@@ -46,7 +46,7 @@ public class MEOWNGE
   {
     this.opc = opc;
     
-    println("CREATE RIGHT EYE");
+        println("CREATE RIGHT EYE");
     //Create Right Eye
     //2A Right Eyebrow 1 Outer
     createMeowngeStrip(197, 370, 109, 346, 42, true);
@@ -139,7 +139,7 @@ public class MEOWNGE
     //3D Extension for inside tip of left ear
     createMeowngeStrip(550, 105, 550, 120, 11, true);
     //3E Left Inside Ear 2
-    createMeowngeStrip(396, 251, 461, 224, 64, false);
+    createMeowngeStrip(396, 251, 461, 224, 47, false);
     //3E Extension for outside tip of left ear
     createMeowngeStrip(550, 105, 543, 120, 10, true);
     //3F Right Outside Ear Support
