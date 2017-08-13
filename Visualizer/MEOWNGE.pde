@@ -6,7 +6,10 @@ public class MEOWNGE
   OPC opc;
   int ledCnt = 0;
   int globalStripCount = 0;
+  int fullStripCount = 0;
   int tempCnt = 0;
+  
+  meowngeStrip strips[] = new meowngeStrip[55];
   
   //This function will place LEDs along two points given
   //Not perfect, because if the points are two close
@@ -17,6 +20,10 @@ public class MEOWNGE
                         int length,
                         Boolean isEndOfStrip)
     {
+      strips[fullStripCount++] = new meowngeStrip(
+        (int)startX, (int)startY, 
+        (int)endX, (int)endY, 
+        length);
     float nextX = startX, incX;
     float nextY = startY, incY;
     incX = (startX - endX) / length * -1;
@@ -177,6 +184,8 @@ public class MEOWNGE
     //1A Nose Bridge Lower
     createMeowngeStrip(289, 519, 289, 421, 41, true);
     println();
+    
+    println("Made " + fullStripCount + " strips" );
   }
   
   void update()
@@ -196,17 +205,50 @@ public class MEOWNGE
       blendMode(ADD);
    
       float size = height * (minSize + sizeScale * fftFilter[i]);
-      map(size, height, 0, 0, 46);
+      int location = floor(map(size, height, 0, 0, 54));
       //PVector center = new PVector(width * (fftFilter[i] * 0.2), 0);
       //center.rotate(millis() * spin + i * radiansPerBucket);
       //center.add(new PVector(width * 0.5, height * 0.5));
-      strokeWeight(size);
-      stroke(rgb);
-      if (size % 2 == 0)
-        line(255, 522, 289, 544);
-      else
-        line(185, 247, 58, 130);      
+      //strokeWeight(size);
+      //stroke(rgb);
+      imageMode(CENTER);
+      println("Do " + location + " At x " + strips[location].centerX + 
+        " and y " + strips[location].centerY);
+      println("  From " + strips[location].startX + "," + strips[location].startY
+        + " to " + strips[location].endX + "," + strips[location].endY);
+      image(dot, strips[location].centerX, strips[location].centerY);
+      
+      //if (location % 2 == 0)
+      //{
+      //  image(dot, (255+289) / 2, (522 + 544) / 2);
+      //  //line(255, 522, 289, 544);
+      //}
+      //else
+      //{
+      //  image(dot, (185 + 58) / 2, (247+130)/2);
+      //  //line(185, 247, 58, 130);
+      //}
         //image(dot, center.x - size/2, center.y - size/2, size, size);
     }
+  }
+}
+
+class meowngeStrip
+{
+  int centerX, centerY;
+  int startX, startY;
+  int endX, endY;
+  int leds;
+  
+  meowngeStrip(int startX, int startY, int endX, int endY, int leds)
+  {
+    this.startX = startX;
+    this.startY = startY;
+    this.endX = endX;
+    this.endY = endY;
+    this.leds = leds;
+    
+    centerX = (startX + endX) / 2;
+    centerY = (startY + endY) / 2;
   }
 }
