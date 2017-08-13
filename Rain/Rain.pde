@@ -22,4 +22,13 @@ void draw() {
      drops[i].show();
      drops[i].fall();
   }
+  
+  meownge.NoseUpdate();
+  meownge.NoseShow();
+
+}
+
+void mousePressed(){
+   background(0);
+   exit();
 }

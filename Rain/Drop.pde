@@ -1,8 +1,8 @@
 class Drop {
   float x = random(width);
   float y = random(-500, -50);
-  float z = random(0, 20);
-  float yspeed = map(z, 0, 20, 4, 10);
+  float z = random(0, 10);
+  float yspeed = map(z, 0, 20, 1, 3);
   float len = map(z, 0, 20, 10, 20);
   int r = (int)random(255);
   int g = (int)random(255);

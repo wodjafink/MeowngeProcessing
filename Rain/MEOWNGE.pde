@@ -7,6 +7,11 @@ public class MEOWNGE
   int ledCnt = 0;
   int globalStripCount = 0;
   int tempCnt = 0;
+  int noseBrightness = 0;
+  boolean goUp = true;
+  
+  color a = color(255, 0, 0);
+  color b = color(255, 255, 0);
   
   //This function will place LEDs along two points given
   //Not perfect, because if the points are two close
@@ -139,7 +144,7 @@ public class MEOWNGE
     //3D Extension for inside tip of left ear
     createMeowngeStrip(550, 105, 550, 120, 11, true);
     //3E Left Inside Ear 2
-    createMeowngeStrip(396, 251, 461, 224, 64, false);
+    createMeowngeStrip(396, 251, 461, 224, 47, false);
     //3E Extension for outside tip of left ear
     createMeowngeStrip(550, 105, 543, 120, 10, true);
     //3F Right Outside Ear Support
@@ -178,4 +183,80 @@ public class MEOWNGE
     createMeowngeStrip(289, 519, 289, 421, 41, true);
     println();
   }
+  
+  void NoseUpdate()
+  {
+    if (noseBrightness > 20)
+      goUp = false;
+    
+    if (noseBrightness < 1)
+      goUp = true; 
+    
+    if (goUp == true)
+      noseBrightness++;
+    else
+      noseBrightness--;
+
+    b = color(255, noseBrightness, 0);
+
+  }
+  
+  void NoseShow()
+  {
+    PGraphics meowngeLine = createGraphics(2, 159);
+    
+    strokeWeight(2);
+    stroke(0xFF, 0x69 + (noseBrightness * 5), 0xB4 + (noseBrightness * 5));
+    
+    //Nose
+    line(255, 522, 289, 544);
+    line(289, 545, 325, 521);
+    line(324, 520, 255, 520);
+    
+    //Right Ear
+    line(32, 307, 32, 148);
+    line(32, 114, 58, 130);
+    line(32, 113, 32, 148);
+    line(185, 247, 58, 130);
+    
+    //Left Ear
+    line(550, 307, 550, 120);
+    line(399, 246, 543, 120);
+    line(550, 105, 550, 120);
+    line(550, 105, 543, 120);
+
+    //Trying to apply a gradient here...
+    //gradientLine(32, 307, 32, 148, a, b);
+
+    //gradientLine(32, 307, 32, 148, meowngeLine);
+
+  }
+  
+  //void gradientLine(float x1, float y1, float x2, float y2, color a, color b)
+  private void gradientLine(float x1, float y1, float x2, float y2, PGraphics obj)
+  {
+    float deltaX = x2-x1;
+    float deltaY = y2-y1;
+    float tStep = 1.0/dist(x1, y1, x2, y2);
+
+    //noStroke();
+    obj.beginDraw();
+    obj.colorMode(HSB,360,100,100);
+    //loadPixels();
+    obj.noStroke();
+    for (float t = 0.0; t < 1.0; t += tStep)
+    {
+      //obj.fill(3, map(t,0,dist(x1, y1, x2, y2), 0, 100), 50);
+      obj.fill(3, 100, 50);
+      //obj.ellipse((x1 + x2) / 2, (y1 + y2)/ 2, 3, 3);
+      //fill(lerpColor(a, b, t));
+
+      //pixels[(int)(x1+t*deltaX) + ((int)(y1+t+deltaY) * width)] = lerpColor(a, b, t);
+      obj.ellipse(x1+t*deltaX,  y1+t*deltaY, 3, 3);
+
+    }
+    obj.endDraw();
+    //updatePixels();
+  }
+
 }
