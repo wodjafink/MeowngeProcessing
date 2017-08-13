@@ -5,16 +5,23 @@ public class MEOWNGE
 {
   OPC opc;
   int ledCnt = 0;
+  int dataStripCount = 0;
   int globalStripCount = 0;
   int tempCnt = 0;
   int noseBrightness = 0;
   boolean goUp = true;
   int upIndex = 0;
   
-  private static final int STRIP_COUNT = 46;
+  private static final int STRIP_COUNT = 54;
   
   //Fixed number of strips, so just make it here.
   MeowngeStrip[] strips = new MeowngeStrip[STRIP_COUNT];
+  MeowngeStrip[] right_eye = new MeowngeStrip[8];
+  MeowngeStrip[] left_eye = new MeowngeStrip[8];
+  MeowngeStrip[] right_ear = new MeowngeStrip[9];
+  MeowngeStrip[] left_ear = new MeowngeStrip[9];
+  MeowngeStrip[] forehead = new MeowngeStrip[8];
+  MeowngeStrip[] nose = new MeowngeStrip[12];
 
   //This is kind of a pain, think of a better way...
   private static final int RIGHT_EYEBROW_OUTER = 0;
@@ -29,7 +36,7 @@ public class MEOWNGE
                         int length,
                         Boolean isEndOfStrip)
   {
-    strips[globalStripCount] = new MeowngeStrip(startX, startY, endX, endY, length);
+    strips[dataStripCount++] = new MeowngeStrip(startX, startY, endX, endY, length);
     
     float nextX = startX, incX;
     float nextY = startY, incY;
@@ -49,12 +56,8 @@ public class MEOWNGE
       tempCnt = 0;
     }
     else
-    {
-      // For counting up for substrips
       tempCnt += length;
-    }
   }
-
   
   MEOWNGE(OPC opc)
   {
@@ -199,7 +202,7 @@ public class MEOWNGE
     {
       goUp = false;
       if (upIndex < STRIP_COUNT)
-        strips[upIndex++].setColor(color(255, 0, 0)); 
+        strips[upIndex++].setColor(color(random(255), random(255), random(255))); 
     }
     
     if (noseBrightness < 1)
