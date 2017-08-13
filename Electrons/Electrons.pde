@@ -9,7 +9,7 @@ void setup()
   // Connect to the local instance of fcserver
   opc = new OPC(this, "127.0.0.1", 7890);
   meownge = new MEOWNGE(opc);
-  
+  imageMode(CENTER);
   e = getElectronImg(30,30,(int)random(255),100,100);
 
 }
