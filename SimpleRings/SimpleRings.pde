@@ -65,8 +65,11 @@ class Ring {
     if (on == true) {
 
       fill(theColor);
+      stroke(255, 0, 50, 150);
       strokeWeight(10);
-      stroke(155, 153);
+      ellipse(x, y, diameter - 20, diameter - 20);
+      stroke(50, 0, 255, 150);
+      strokeWeight(5);
       ellipse(x, y, diameter, diameter);
     }
   }
