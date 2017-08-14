@@ -9,6 +9,8 @@ public class MEOWNGE
   int fullStripCount = 0;
   int tempCnt = 0;
   
+  final static int NUM_ALL_STRIPS = 55;
+  
   meowngeStrip strips[] = new meowngeStrip[55];
   
   //This function will place LEDs along two points given
@@ -23,7 +25,7 @@ public class MEOWNGE
       strips[fullStripCount++] = new meowngeStrip(
         (int)startX, (int)startY, 
         (int)endX, (int)endY, 
-        length);
+        length, dot);
     float nextX = startX, incX;
     float nextY = startY, incY;
     incX = (startX - endX) / length * -1;
@@ -202,22 +204,28 @@ public class MEOWNGE
     for (int i = 0; i < fftFilter.length; i += 3) {   
       color rgb = colors.get(int(map(i, 0, fftFilter.length-1, 0, colors.width-1)), colors.height/2);
       tint(rgb, fftFilter[i] * opacity);
-      blendMode(ADD);
+      //Turn this off to see the dots always
+      //blendMode(ADD);??
    
       float size = height * (minSize + sizeScale * fftFilter[i]);
-      int location = floor(map(size, 0, height / 2,  0, 52));
+      int location = floor(map(size, 0, height * 2,  0, 52));
       //PVector center = new PVector(width * (fftFilter[i] * 0.2), 0);
       //center.rotate(millis() * spin + i * radiansPerBucket);
       //center.add(new PVector(width * 0.5, height * 0.5));
       //strokeWeight(size);
       //stroke(rgb);
-      println("Access" + location);
+      //println("Access" + location);
       imageMode(CENTER);
-      //println("Do " + location + " At x " + strips[location].centerX + 
-      //  " and y " + strips[location].centerY);
+      //println("Do " + location + " At x " + strips[location].moveX + 
+      //  " and y " + strips[location].moveY);
       //println("  From " + strips[location].startX + "," + strips[location].startY
       //  + " to " + strips[location].endX + "," + strips[location].endY);
-      image(dot, strips[location].centerX, strips[location].centerY, size, size);
+      for (int j = 0; j < ( NUM_ALL_STRIPS - 1); j++)
+      {
+        strips[j].update_strip();
+        strips[j].display_strip((int)size);
+      }
+      //image(dot, strips[location].moveX, strips[location].moveY, size, size);
       
       //if (location % 2 == 0)
       //{
@@ -236,20 +244,80 @@ public class MEOWNGE
 
 class meowngeStrip
 {
+  PImage stripImg;
+  int moveX, moveY, highX, highY, lowX, lowY;
   int centerX, centerY;
   int startX, startY;
   int endX, endY;
   int leds;
+  boolean isAscendingX;
+  boolean isAscendingY;
   
-  meowngeStrip(int startX, int startY, int endX, int endY, int leds)
+  meowngeStrip(int startX, int startY, int endX, int endY, int leds, PImage stripImg)
   {
     this.startX = startX;
     this.startY = startY;
     this.endX = endX;
     this.endY = endY;
     this.leds = leds;
+    this.stripImg = stripImg;
+    
+    if (startX > endX) 
+    {
+      highX = startX; lowX = endX;  isAscendingX = false;  moveX = endX;
+    }
+    else if (startX <= endX)
+    {
+      highX = endX;  lowX = startX;  isAscendingX = true;  moveX = startX;
+    }
+    
+    if (startY > endY)
+    {
+      highY = startY; lowY = endY;  isAscendingY = false;  moveY = endY;
+    }
+    else if (startY <= endY)
+    {
+      highY = endY;  lowY = startY;  isAscendingY = true;  moveY = startY;
+    }
     
     centerX = (startX + endX) / 2;
     centerY = (startY + endY) / 2;
+  }
+  
+  void display_strip(int size)
+  {
+    size += 2;
+    image(stripImg, moveX, moveY, size, size);
+  }
+  
+  void update_strip()
+  {
+     if(isAscendingX)
+     {
+       if (moveX < highX)
+         moveX++; 
+       if (moveX == highX)
+         isAscendingX = false;
+     } else
+     {
+       if (moveX > startX)
+         moveX--; 
+       if (moveX == startX)
+         isAscendingX = true;
+     }
+     
+     if(isAscendingY)
+     {
+       if (moveY < highY)
+         moveY++; 
+       if (moveY == highY)
+         isAscendingY = false;
+     } else
+     {
+       if (moveY > startY)
+         moveY--; 
+       if (moveY == startY)
+         isAscendingY = true;
+     }
   }
 }
