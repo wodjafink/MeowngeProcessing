@@ -272,6 +272,8 @@ class SlidingRings extends DefaultDrawer{
   float pos1 = 0;
   float pos2 = 0;
   float pos3 = 0;
+  boolean hasInit = false;
+  int redness, greenness, blueness;
   
   SlidingRings()
   {
@@ -281,7 +283,14 @@ class SlidingRings extends DefaultDrawer{
   
   void Init()
   {
-    
+    if (!hasInit)
+    {
+      colorMode(HSB);
+      hasInit = true; 
+      redness = (int)random(255);
+      greenness = (int)random(255);
+      blueness = (int)random(255);
+    }
   }
   
   void Draw()
@@ -293,22 +302,26 @@ class SlidingRings extends DefaultDrawer{
     
     for(int j = 0; j < 3; j++){
       if(j == 0){
-        stroke(255,0,0,150);
-        ellipse((float(width/3)*pos1)+(height/2),height/2, 300,300);
+        stroke(redness,255,255,150);
+        //stroke(redness,0,0,150);
+        ellipse((float(width/3)*pos1)+(height/2),height/2, 200,200);
       }
       else if(j == 1){
-        stroke(0,255,0,150);
+        stroke(greenness,255,255,150);
+        //stroke(0,greenness,0,150);
         ellipse((float(width/3)*pos2)+(height/2),height/2, 300,300);
       }
       else if(j == 2){
-        stroke(0,0,255,150);
-        ellipse((float(width/3)*pos3)+(height/2),height/2, 300,300);
+        stroke(blueness,255,255,150);
+        //stroke(0,0,blueness,150);
+        ellipse((float(width/3)*pos3)+(height/2),height/2, 400,400);
       }
     }
   }
   
   void Reset()
   {
-    
+    colorMode(RGB);
+    hasInit = false;
   }
 }
