@@ -93,7 +93,8 @@ void setup()
   //dr.SetDuration(5);
   //drawers.add(dr);
   drawers.add(new Metaballs());
-  drawers.add(new ImageLoader());
+  //drawers.add(new ImageLoader());
+  drawers.add(new SlidingRings());
   //drawers.add(new Rain());
   //drawers.add(new Visualizer());
   //drawers.add(new Texter(5, "Fill With Circles 2", #CC6600));

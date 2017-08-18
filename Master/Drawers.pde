@@ -177,7 +177,8 @@ class Drop {
 class Metaballs extends DefaultDrawer
 {
   Blob[] blobs = new Blob[15];
-  int metafactor = (int)random(255);
+  int metafactor;// = (int)random(255);
+  boolean hasInit = false;
   
   Metaballs()
   {
@@ -190,7 +191,11 @@ class Metaballs extends DefaultDrawer
   
   void Init()
   {
-    
+    if (!hasInit){
+      metafactor = (int)random(255);
+      colorMode(HSB);
+      hasInit = true;
+    }
   }
   
   void Draw()
@@ -224,7 +229,8 @@ class Metaballs extends DefaultDrawer
   
   void Reset()
   {
-    
+    colorMode(RGB);
+    hasInit = false;
   }
 }
 
@@ -259,5 +265,50 @@ class Blob {
     stroke(0);
     strokeWeight(4);
     ellipse(pos.x, pos.y, r * 2, r * 2);
+  }
+}
+
+class SlidingRings extends DefaultDrawer{
+  float pos1 = 0;
+  float pos2 = 0;
+  float pos3 = 0;
+  
+  SlidingRings()
+  {
+    strokeWeight(60);
+    noFill();
+  }
+  
+  void Init()
+  {
+    
+  }
+  
+  void Draw()
+  {
+    background(0);
+    pos1 = cos(radians(frameCount));
+    pos2 = cos(radians(frameCount*1.5));
+    pos3 = cos(radians(frameCount*2));
+    
+    for(int j = 0; j < 3; j++){
+      if(j == 0){
+        stroke(255,0,0,150);
+        ellipse((float(width/3)*pos1)+(height/2),height/2, 300,300);
+      }
+      else if(j == 1){
+        stroke(0,255,0,150);
+        ellipse((float(width/3)*pos2)+(height/2),height/2, 300,300);
+      }
+      else if(j == 2){
+        stroke(0,0,255,150);
+        ellipse((float(width/3)*pos3)+(height/2),height/2, 300,300);
+      }
+    }
+  }
+  
+  void Reset()
+  {
+    
   }
 }
