@@ -1,24 +1,29 @@
 float spring = 0.05;
 float gravity = 0.01;
 float friction = -0.9;
+int numBalls = 22;
 
 class BouncyBalls extends DefaultDrawer
 {
-  int numBalls = 22;
+  boolean hasInit = false;
   Ball[] balls = new Ball[numBalls];
   
   BouncyBalls()
   {
-    for (int i = 0; i < numBalls; i++)
-    {
-      balls[i] = new Ball(random(width), random(height), random(30, 70), i, balls);
-    }
-    noStroke();
+
   }
   
   void Init()
   {
-    
+    if (!hasInit)
+    {
+      for (int i = 0; i < numBalls; i++)
+      {
+        balls[i] = new Ball(random(width), random(height), random(30, 70), i, balls);
+      }
+      noStroke();
+      hasInit = true;
+    }
   }
   
   void Draw()
@@ -34,7 +39,7 @@ class BouncyBalls extends DefaultDrawer
   
   void Reset()
   {
-    
+    hasInit = false;
   }
 }
 
