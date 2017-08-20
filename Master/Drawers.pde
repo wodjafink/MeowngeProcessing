@@ -524,3 +524,54 @@ class Acid extends DefaultDrawer
     hasInit = false;
   }
 }
+
+class MatrixBalls extends DefaultDrawer
+{
+  float a = 30;
+  boolean hasInit = false;
+  int ballSize;
+  int mode;
+  MatrixBalls()
+  {
+    noStroke();
+    fill(0, 255, 150);
+  }
+  
+  void Init()
+  {
+    if (!hasInit)
+    {
+      ballSize = (int)random(5,10);
+      mode = (int)random(3);
+      hasInit = true;
+    }
+  }
+  
+  void Draw()
+  {
+    background(40);
+    translate(width/2-25, height/2);
+    for (int i = 0; i < 360; i+=a)
+    {
+      for(int q = -36; q < 36; q++)
+      {
+        float x = i/(a/6)+tan(radians(dist(i/(a/2), i/(a/2), 0, 0)+q*50+frameCount))*a;
+        switch(mode)
+        {
+          case 0:
+          default:
+            ellipse(x, q*10, ballSize, ballSize); 
+            break;
+          case 2:
+            ellipse(q*10, x, ballSize, ballSize); 
+            break;
+        }
+      }
+  }
+  }
+  
+  void Reset()
+  {
+    hasInit = false;
+  }
+}
