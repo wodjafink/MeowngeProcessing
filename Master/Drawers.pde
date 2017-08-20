@@ -195,6 +195,7 @@ class Metaballs extends DefaultDrawer
       metafactor = (int)random(255);
       colorMode(HSB);
       hasInit = true;
+      println("Start Metaballs");
     }
   }
   
@@ -290,6 +291,7 @@ class SlidingRings extends DefaultDrawer{
       redness = (int)random(255);
       greenness = (int)random(255);
       blueness = (int)random(255);
+      println("Start Sliding Rings");
     }
   }
   
@@ -426,6 +428,7 @@ class circlesAndSquares extends DefaultDrawer
       noStroke();
       colorMode(HSB, 360, 100, 100);
       background(10, 0, 0);
+      println("Start CirclesAndSquares");
     }
   }
   
@@ -506,6 +509,7 @@ class Acid extends DefaultDrawer
         }
       }
       hasInit = true;
+      println("Start Acid");
     }
   }
    
@@ -544,6 +548,7 @@ class MatrixBalls extends DefaultDrawer
       ballSize = (int)random(5,10);
       mode = (int)random(3);
       hasInit = true;
+      println("Start MatrixBalls");
     }
   }
   

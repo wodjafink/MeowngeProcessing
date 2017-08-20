@@ -23,6 +23,7 @@ class BouncyBalls extends DefaultDrawer
       }
       noStroke();
       hasInit = true;
+      println("Start BouncyBalls");
     }
   }
   
