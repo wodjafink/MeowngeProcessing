@@ -95,6 +95,7 @@ void setup()
   //drawers.add(new Metaballs());
   //drawers.add(new ImageLoader());
   //drawers.add(new lines());
+  drawers.add(new BouncyBalls());
   drawers.add(new Acid());
   drawers.add(new circlesAndSquares());
   //drawers.add(new SlidingRings());

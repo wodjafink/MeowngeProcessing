@@ -46,7 +46,7 @@ public class MEOWNGE
   {
     this.opc = opc;
     
-        println("CREATE RIGHT EYE");
+    println("CREATE RIGHT EYE");
     //Create Right Eye
     //2A Right Eyebrow 1 Outer
     createMeowngeStrip(197, 370, 109, 346, 42, true);
