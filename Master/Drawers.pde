@@ -325,3 +325,202 @@ class SlidingRings extends DefaultDrawer{
     hasInit = false;
   }
 }
+
+class lines extends DefaultDrawer{
+  //line theLines[];
+  ArrayList<line> theLines = new ArrayList<line>();
+  lines()
+  {
+    
+  }
+  
+  void Init()
+  {
+    
+  }
+  
+  void Draw()
+  {
+    blendMode(BLEND);
+    background(0);
+    blendMode(ADD);
+    translate(width/2, height/2);
+    for (line l : theLines)
+    {
+      l.update();
+      l.show();
+    }
+    
+    for (int i = 0; i < theLines.size(); i++)
+    {
+      line l = theLines.get(i);
+       if (l.z < 0.0) theLines.remove(i);
+    }
+    
+    if (random(1) > 0.2)
+    {
+      theLines.add(new line()); 
+    }
+  }
+  
+  void Reset()
+  {
+    blendMode(BLEND);
+  }
+}
+
+class line {
+  float posA = random(PI * 2);
+  float posR = sqrt(width * width + height * height);
+  
+  PVector pos;// = new PVector(posR * cos(posA), posR * sin(posA));
+  float z;
+  float angle;
+  
+  line()
+  {
+    z = 1;
+    angle = posA + (PI / 2);
+    pos = new PVector(posR * cos(posA), posR * sin(posA));
+  }
+  
+  void update()
+  {
+    z -= 0.002; 
+  }
+  
+  void show()
+  {
+    PVector P1, P2;
+    float l = sqrt(width * width + height * height);
+    pos.mult(z);
+    P1 = pos.add( new PVector(cos(angle), sin(angle)).mult(l));
+    P2 = pos.sub( new PVector(cos(angle), sin(angle)).mult(l));
+    stroke(255, 90, 30, map(sqrt(z), 0.1, 1, 0, 255));
+    strokeWeight(map(this.z, 0, 1, 1, 80));
+    line(P1.x, P1.y, P2.x, P2.y);
+  }
+}
+
+class circlesAndSquares extends DefaultDrawer
+{
+  
+  float r = 0;
+  float col =30;
+  float inc = 0.5;
+  float circle_size;
+  boolean hasInit = false;
+  
+  circlesAndSquares()
+  {
+    
+  }
+  
+  void Init()
+  {
+    if (!hasInit)
+    {
+      circle_size = random(5);
+      hasInit = true;
+      smooth();
+      noStroke();
+      colorMode(HSB, 360, 100, 100);
+      background(10, 0, 0);
+    }
+  }
+  
+  void Draw()
+  {
+    //background(0);
+    translate(width/2, height/2);
+    fill(col, 100, 100);
+    rotate(r);
+    if(inc<0)
+      ellipse( r, 10, circle_size, circle_size);
+    else
+      rect( r, 10, circle_size, circle_size);
+
+    if (r>=250||r<=-250)
+    {
+      background(random(100), 0, 0);
+      r = 0;
+      inc = random(-3,3);
+      
+      if(inc >= -0.5 && inc <= 0.5)
+      {
+        inc = 1;
+      }
+      circle_size = random(5, 25);
+    } 
+    else 
+    {
+      r = r + inc;
+      circle_size = circle_size +0.2;
+    }
+    
+    col = col + 0.2;
+    if (col >=360) 
+    {
+      col = 1;
+    } 
+  }
+  
+  void Reset()
+  {
+    hasInit = false;
+  }
+}
+
+class Acid extends DefaultDrawer
+{
+  int pal []=new int [128];
+  int[] cls;
+  boolean hasInit = false;
+   
+  Acid()
+  {
+
+  }
+  
+  void Init()
+  {
+    if (!hasInit)
+    {
+      float s1,s2,s3;
+      float additive1 = random(255);
+      float additive2 = random(255);
+      for (int i=0;i<128;i++)
+      {
+        s1=sin(i*PI/25);
+        s2=sin(i*PI/50-PI/4);
+        s3=sin(i*PI/50+PI/4);
+        pal[i]=color(additive1+s2*128,additive2+s3*128,s1*128);
+      }
+    
+      cls = new int[width*height];
+      for (int x = 0; x < width; x++)
+      {
+        for (int y = 0; y < height; y++)
+        {
+          cls[x+y*width] = (int)((127.5 + +(127.5 * cos(x / 32.0)))+ (127.5 + +(127.5 * sin(y / 32.0))) + (127.5 + +(127.5 * sin(sqrt((x * x + y * y)) / 32.0)))  ) / 4;
+        }
+      }
+      hasInit = true;
+    }
+  }
+   
+  void Draw()
+  {
+    loadPixels();
+    for (int pixelCount = 0; pixelCount < cls.length; pixelCount++)
+    {                    
+      pixels[pixelCount] =  pal[(cls[pixelCount] + frameCount)&127];
+    }
+    updatePixels(); 
+  }
+   
+  void Reset()
+  {
+    hasInit = false;
+  }
+}
